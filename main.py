@@ -1,8 +1,10 @@
-from play_from import focus_on_iphone, click_on_play, choose_car, game_mode, choose_location, pause_game, continue_game, play, enter_to_allow, left, right, brake
+from play_from import focus_on_iphone, click_on_play, choose_car, game_mode, choose_location, pause_game, continue_game, play, left, right, brake
 from screen_view import get_frame
 import time
 from rl import TrafficEnv
 from stable_baselines3 import DQN
+
+#run without sudo so that the screenshots work. 
 
 #ACTIONS = {
 #    0: lambda: brake(),
@@ -15,11 +17,4 @@ from stable_baselines3 import DQN
 #model.learn(total_timesteps=10000)
 #
 #
-get_frame()
-focus_on_iphone()
-enter_to_allow()
-focus_on_iphone()
-click_on_play()
-get_frame()
-get_frame()
-get_frame()
+

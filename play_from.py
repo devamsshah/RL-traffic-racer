@@ -37,13 +37,13 @@ def continue_game():
     time.sleep(0.2)
     py.click()
 
-def enter_to_allow():
-    py.moveTo(x=854, y=502)
-    py.click()
-    py.moveTo(901, 520)
-    py.click()
-
-    #py.press('enter')
+#def enter_to_allow():
+#    py.moveTo(x=854, y=502)
+#    py.click()
+#    py.moveTo(901, 520)
+#    py.click()
+#
+#    #py.press('enter')
 
    
 def click_on_play():
@@ -66,7 +66,7 @@ def choose_location(location='forest'):#default is 'forest' on for now
     focus_on_iphone()
     py.moveTo(1554, 937)
     py.dragTo(1198, 937, 1, button='left')
-    py.moveTo(x=1384, y=982)
+    py.moveTo(x=1395, y=982)
     py.click() #chosen location: Forest 
     
 def play(car='audi', mode='one way', location='forest'):
