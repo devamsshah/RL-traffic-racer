@@ -12,6 +12,7 @@ end_string = "TOTAL DISTANCE"
 
 def check_if_done(state):
     text = pytesseract.image_to_string(Image.fromarray(image_array))
+    print(text)
     if substring in text:
         return True
     else:
