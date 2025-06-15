@@ -4,8 +4,6 @@ from gymnasium import spaces
 import play, time
 import screen_view as sv
 
-no_score = 0 #keeps track of the number of times score wasnt been able to scan
-
 class TrafficEnv(gym.Env):
     """Custom Environment that follows gym interface."""
 
@@ -15,6 +13,7 @@ class TrafficEnv(gym.Env):
         super().__init__()
         play.play()
         self.training_start_time = time.time()
+        self.no_score = 0  #keeps track of the number of times score wasnt been able to scan
         # Define action and observation space
         # [direction, brake] => direction ∈ [-1, 1], brake ∈ [0, 1]
         self.action_space = spaces.Box(low=np.array([0.0, 0.0]),
@@ -55,6 +54,7 @@ class TrafficEnv(gym.Env):
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
+        play.play_again()
         return self.get_frame(), {}
 
     def render(self):
@@ -78,7 +78,7 @@ class TrafficEnv(gym.Env):
     def get_reward_and_is_finished(self, obs):
         end = sv.is_terminated(obs)
         if end:
-            score, no_score = sv.get_score(obs, no_score)
+            score, self.no_score = sv.get_score(self.no_score, frame=obs)
             return 0.01*score, end
         else:
             return 1, end

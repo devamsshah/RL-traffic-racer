@@ -55,7 +55,7 @@ def is_terminated(frame = get_frame()):
         return False
 
 
-def get_score(frame = get_frame(), again=0, no_score):
+def get_score(no_score, frame = get_frame(), again=0):
     if no_score >=100:
         raise ValueError("Score not Found")
     text = read_text(frame)
@@ -76,11 +76,12 @@ def get_score(frame = get_frame(), again=0, no_score):
             time.sleep(0.5)
             if again >= 3:
                 no_score +=1
-            get_score(again=again+1, no_score=no_score)
+            else:
+                get_score(again=again+1, no_score=no_score)
     raw = m.group(1)
     score = int(raw.replace(",",""))
     print("------------------> S C O R E : ", score)
-    time.sleep(0.2)
-    py.moveTo(x=1473, y=1069)
-    py.click()
+    #time.sleep(0.2)
+    #py.moveTo(x=1473, y=1069)
+    #py.click()
     return score, no_score

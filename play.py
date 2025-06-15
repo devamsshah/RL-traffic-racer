@@ -61,6 +61,7 @@ def choose_location(location='forest'):#default is 'forest' on for now
     
 def play_again():
     sv.focus_on_iphone()
+    time.sleep(0.2)
     py.moveTo(x=1473, y=1069)
     py.click()
 
