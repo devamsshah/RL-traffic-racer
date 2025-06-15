@@ -40,15 +40,6 @@ def continue_game():
     time.sleep(0.2)
     py.click()
 
-#def enter_to_allow():
-#    py.moveTo(x=854, y=502)
-#    py.click()
-#    py.moveTo(901, 520)
-#    py.click()
-#
-#    #py.press('enter')
-
-   
 def click_on_play():
     sv.focus_on_iphone()
     py.moveTo(1639, 978) 
