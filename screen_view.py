@@ -1,5 +1,5 @@
 import mss
-import cv2
+import cv2, re
 import numpy as np
 import time
 import pyautogui as py
@@ -55,7 +55,9 @@ def is_terminated(frame = get_frame()):
         return False
 
 
-def get_score(frame = get_frame()):
+def get_score(frame = get_frame(), again=0, no_score):
+    if no_score >=100:
+        raise ValueError("Score not Found")
     text = read_text(frame)
     pattern = re.compile(
             r"YOUR\s+SCORE\b(?:\s|\n)*([\d]{1,3}(?:,\d{3})*)",
@@ -63,8 +65,22 @@ def get_score(frame = get_frame()):
         )
     m = pattern.search(text)
     if not m:
-        raise ValueError("Couldn't find a score in the text")
+        print("TEXT: ", text)
+        pattern = re.compile(
+                r"([\d]{1,3}(?:,\d{3})*)\s*(?:\n|\s)*SCORES\b",
+                flags=re.IGNORECASE
+        ) 
+        m = pattern.search(text)
+        if not m:
+            print("TEXT: ", text)
+            time.sleep(0.5)
+            if again >= 3:
+                no_score +=1
+            get_score(again=again+1, no_score=no_score)
     raw = m.group(1)
     score = int(raw.replace(",",""))
     print("------------------> S C O R E : ", score)
-    return score
+    time.sleep(0.2)
+    py.moveTo(x=1473, y=1069)
+    py.click()
+    return score, no_score

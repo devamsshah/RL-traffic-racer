@@ -1,45 +1,57 @@
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
-import play
+import play, time
 import screen_view as sv
 
+no_score = 0 #keeps track of the number of times score wasnt been able to scan
 
-class CustomEnv(gym.Env):
+class TrafficEnv(gym.Env):
     """Custom Environment that follows gym interface."""
 
     metadata = {"render_modes": ["human"], "render_fps": 30}
 
-    def __init__(self, arg1, arg2, ...):
+    def __init__(self):
         super().__init__()
+        play.play()
+        self.training_start_time = time.time()
         # Define action and observation space
         # [direction, brake] => direction ∈ [-1, 1], brake ∈ [0, 1]
-        self.action_space = spaces.Tuple((spaces.Discrete(4),
-                                          spaces.Box(low=np.array([0.0]), high=np.array([1.0]), dtype=np.float64)))
+        self.action_space = spaces.Box(low=np.array([0.0, 0.0]),
+                               high=np.array([3.0, 1.0]),
+                                       dtype=np.float64)
         # Example for using image as input (channel-first; channel-last also works):
         # Assume get_frame returns image of shape (HEIGHT, WIDTH, 3) and dtype np.uint8
         HEIGHT, WIDTH, CHANNELS = 600, 1320, 4 
         self.observation_space = spaces.Box(low=0, high=255,
-                                            shape=(HEIGHT, WIDTH CHANNELS), dtype=np.uint8)
+                                            shape=(HEIGHT, WIDTH, CHANNELS), dtype=np.uint8)
 
     def step(self, action):
-        a, m = action
-        if a == 0:
-            pass   
-        elif a == 1:
-            self.left(t=m)
-        elif a == 2:
-            self.right(t=m)
-        elif a == 3:
-            self.brake(t=m)
+        action_type = int(np.clip(round(action[0]), 0, 3))  # round and clip to 0–3
+        magnitude = float(np.clip(action[1], 0.0, 1.0))     # magnitude 0.0–1.0
+	    
+        act = ""
+        if action_type == 0:
+            act = "nothing"
+        elif action_type == 1:
+            act = "left"
+            self.left(magnitude)
+        elif action_type == 2:
+            act = "right"
+            self.right(magnitude)
+        elif action_type == 3:
+            act = "brake"
+            self.brake(magnitude)
         else:
-            raise ValueError(f"Invalid action number: {a}")
-        
-
+            act = "ERROR"
         observation = self.get_frame()
         reward, terminated = self.get_reward_and_is_finished(observation)
-
-        return observation, reward, terminated
+        
+        info = {
+            "action_taken": act+": "+str(magnitude),
+            "time_elapsed": time.time() - self.training_start_time
+        }
+        return observation, reward, terminated, False, info
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
@@ -66,7 +78,7 @@ class CustomEnv(gym.Env):
     def get_reward_and_is_finished(self, obs):
         end = sv.is_terminated(obs)
         if end:
-            score = sv.get_score(obs)
+            score, no_score = sv.get_score(obs, no_score)
             return 0.01*score, end
         else:
             return 1, end

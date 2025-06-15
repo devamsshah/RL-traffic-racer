@@ -1,10 +1,6 @@
 import pyautogui as py
 import time
 import screen_view as sv
-import pytesseract
-from PIL import Image
-import re 
-import cv2
 
 debug = False #add function that allows to turn debug on
 
