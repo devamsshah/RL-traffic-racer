@@ -3,6 +3,11 @@ import cv2
 import numpy as np
 import time
 import pyautogui as py
+import pytesseract
+from PIL import Image
+
+debug = False
+
 monitor_region = {
         "top": 810,
         "left": 1070, 
@@ -29,3 +34,37 @@ def get_frame(display_frame=False):
             focus_on_iphone()
         
         return frame
+
+def read_text(frame = get_frame(debug), print_text = debug):
+    if frame is None:
+        raise ValueError("Frame is None! Check your image capture logic.")
+    # Convert to grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    text = pytesseract.image_to_string(Image.fromarray(gray))
+
+    if print_text:
+        print(text)
+
+    return text
+
+def is_terminated(frame = get_frame()):
+    text = read_text(frame)
+    if "YOUR SCORE" in text:
+        return True
+    else:
+        return False
+
+
+def get_score(frame = get_frame()):
+    text = read_text(frame)
+    pattern = re.compile(
+            r"YOUR\s+SCORE\b(?:\s|\n)*([\d]{1,3}(?:,\d{3})*)",
+            flags=re.IGNORECASE
+        )
+    m = pattern.search(text)
+    if not m:
+        raise ValueError("Couldn't find a score in the text")
+    raw = m.group(1)
+    score = int(raw.replace(",",""))
+    print("------------------> S C O R E : ", score)
+    return score
