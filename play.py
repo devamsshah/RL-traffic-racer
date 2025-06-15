@@ -5,21 +5,21 @@ import screen_view as sv
 debug = False #add function that allows to turn debug on
 
 def brake(t=0.3):
-    sv.focus_on_iphone()
+    #sv.focus_on_iphone()
     py.moveTo(x=1395, y=1045)
     py.mouseDown()
     time.sleep(t)
     py.mouseUp()
 
 def right(t=0.3):
-    sv.focus_on_iphone()
+    #sv.focus_on_iphone()
     py.moveTo(x=1670, y=1045)
     py.mouseDown()
     time.sleep(t)
     py.mouseUp()
 
 def left(t=0.3):
-    sv.focus_on_iphone()
+    #sv.focus_on_iphone()
     py.moveTo(x=1120, y=1045)
     py.mouseDown()
     time.sleep(t)
