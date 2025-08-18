@@ -79,7 +79,7 @@ class TrafficEnv(gym.Env):
         end = sv.is_terminated(obs)
         if end:
             score, self.no_score = sv.get_score(self.no_score, frame=obs)
-            return 0.01*score, end
+            return (0.01*score)-10, end
         else:
-            return 1, end
+            return 0.01, end
 

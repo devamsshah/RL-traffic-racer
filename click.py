@@ -12,4 +12,3 @@ print(pyautogui.position())
 
 ###Test
 #if doesnt work, check system settings, privacy and security, accessibility and make sure terminal/ other app is on. 
-pyautogui.moveTo(1670, 1050)

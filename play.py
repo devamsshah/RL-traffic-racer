@@ -3,7 +3,11 @@ import time
 import screen_view as sv
 
 debug = False #add function that allows to turn debug on
-
+# the car bonnet always ends at Point(x=1396, y=988) during the start
+# the car bonnet is at Point(x=1304, y=988) when its little to the left 
+# the car bonnet is at Point(x=1482, y=988) when its little to the right 
+# the car bonnet is at Point(x=1242, y=988) when its all the way left 
+# the car bonnet is at Point(x=1545, y=988) when its all the way right
 def brake(t=0.3):
     #sv.focus_on_iphone()
     py.moveTo(x=1395, y=1045)

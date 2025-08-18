@@ -78,10 +78,12 @@ def get_score(no_score, frame = get_frame(), again=0):
                 no_score +=1
             else:
                 get_score(again=again+1, no_score=no_score)
-    raw = m.group(1)
-    score = int(raw.replace(",",""))
-    print("------------------> S C O R E : ", score)
+    if m:
+        raw = m.group(1)
+        score = int(raw.replace(",",""))
+        print("------------------> S C O R E : ", score)
     #time.sleep(0.2)
     #py.moveTo(x=1473, y=1069)
     #py.click()
-    return score, no_score
+        return score, no_score
+    return 0, no_score
