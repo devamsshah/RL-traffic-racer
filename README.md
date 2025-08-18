@@ -2,9 +2,8 @@
 
 ## Introduction
 
-This is an exploratory project I built to dive into reinforcement learning (RL). The main goal was to train an RL agent to play the popular mobile game **Traffic Racer**. Along the way, I experimented with different algorithms and frameworks, gaining hands-on experience with core RL concepts and implementation details.
+This is an exploratory project I built to dive into reinforcement learning (RL). The main goal was to train an RL agent to play the popular mobile game **Traffic Racer**. Along the way, I experimented with different algorithms and frameworks, gaining hands-on experience with core RL concepts and implementation details.*
 
-This project is not intended as a production-ready implementation, but rather as a learning experience to understand the building blocks of RL environments, models, and training pipelines.
 
 ---
 
@@ -72,5 +71,6 @@ Looking ahead, I see several exciting opportunities to extend this work:
 
 ## Reflections
 
-This project gave me a strong foundation in RL and the confidence to tackle more ambitious problems in the future. More than just training agents, it taught me the importance of **experiment design, reward shaping, and systematic debugging**—skills I can carry into research and practical applications.
+This project gave me a foundation in RL and the confidence to tackle more ambitious problems in the future. More than just training agents, it taught me how to design an experiment, shape rewards, and systematic debugging skills I can carry into research and practical applications.
 
+*This project is not intended as a production-ready implementation, but rather as a learning experience to understand the building blocks of RL environments, models, and training pipelines.
