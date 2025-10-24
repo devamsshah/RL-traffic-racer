@@ -61,11 +61,6 @@ Looking ahead, I see several exciting opportunities to extend this work:
 * Checkpoints of trained models.
 * Scripts for logging, evaluation, and visualization.
 
-## What the Project Does *Not* Include
-
-* A fully optimized or production-ready Traffic Racer clone.
-* State-of-the-art RL implementations—this project focuses on exploration and learning, not benchmarking.
-* Hyperparameter optimization beyond basic experimentation.
 
 ---
 
